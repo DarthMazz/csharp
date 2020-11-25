@@ -5,9 +5,19 @@ using CosmosGettingStartedTutorial;
 using System.Net;
 using System.Diagnostics;
 using System.Collections.Generic;
+using Cosmos.Samples.Shared;
 
 namespace bulkexecutor
 {
+    public class MyItem
+    {
+        public string id { get; set; }
+
+        public string pk { get; set; }
+
+        public int operationCounter { get; set; } = 0;
+    }
+
     class Program
     {
         string EndpointUri = "https://bulkexecute-test-cosmos.documents.azure.com:443/";
@@ -23,9 +33,12 @@ namespace bulkexecutor
         {
             try
             {
-                Console.WriteLine("Beginning operations...\n");
-                Program p = new Program();
-                await p.GetStartedDemoAsync();
+                //Console.WriteLine("Beginning operations...\n");
+                //Program p = new Program();
+                //await p.GetStartedDemoAsync();
+
+                await Cosmos.Samples.Shared.Program.Execute();
+
             }
             catch (CosmosException de)
             {
@@ -102,7 +115,7 @@ namespace bulkexecutor
             {
                 // Create an item in the container representing the Andersen family. Note we provide the value of the partition key for this item, which is "Andersen"
                 ItemResponse<Family> andersenFamilyResponse = await this.container.CreateItemAsync<Family>(andersenFamily, new PartitionKey(andersenFamily.LastName));
-
+       
                 // Note that after creating the item, we can access the body of the item with the Resource property off the ItemResponse. We can also access the RequestCharge property to see the amount of RUs consumed on this request.
                 Console.WriteLine("Created item in database with id: {0} Operation consumed {1} RUs.\n", andersenFamilyResponse.Resource.Id, andersenFamilyResponse.RequestCharge);
             }
