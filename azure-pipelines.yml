@@ -14,3 +14,10 @@ steps:
   inputs:
     version: '3.0.x'
     packageType: runtime
+
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    command: build
+    projects: '**/*.csproj'
+    arguments: '--configuration $(buildConfiguration)' # Update this to match your need
