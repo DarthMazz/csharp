@@ -6,4 +6,6 @@
 trigger:
 - main
 
-pool:test
+pool:
+  name: test
+
